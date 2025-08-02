@@ -35,27 +35,25 @@ const UserList = [
         year: 2009,
       }
     ],
-  friends:[
-    {
-      id: 4,
-      name: "Ahad",
-      username: "cameraman",
-      age: 18,
-      nationality: "Australia",
-      friends: [
-        {
-          id: 3,
-          name: "Sarah",
-          username: "cameron",
-          age: 25,
-          nationality: "United States",
-        }
-      ]
-    },
-  ]
+    friends: [
+      {
+        id: 4,
+        name: "Ahad",
+        username: "cameraman",
+        age: 18,
+        nationality: "Australia",
+        friends: [
+          {
+            id: 3,
+            name: "Sarah",
+            username: "cameron",
+            age: 25,
+            nationality: "United States",
+          }
+        ]
+      },
+    ]
   },
-
-
   {
     id: 4,
     name: "Ahad",

@@ -26,17 +26,15 @@ const typeDefs = gql`
 #to have data about users we have to create a type called User
     type Query{
         movies:[movie!]! #returns all movies
+        # Users:[User!]! #inorder to get all users we put [ ] or else we will get only 1 user ------- returns a list of all users
+        Users: UserResult! #Users uses a UserResult union (can be success or error).
         moviespecific(name:String):movie! #lets you search for one movie by name
-        Users:[User!]! #inorder to get all users we put [ ] or else we will get only 1 user ------- returns a list of all users
         user(name:String):User! #gets one user by name
 
 
 
         #as i added a field in the type query so i need to add a new resolver for it.
     }   #now a resolver will resolve the Users
-
-
-
 
 
 
@@ -52,8 +50,6 @@ const typeDefs = gql`
         id:ID!
         newname:String!
     }
-
-
 
 
 
@@ -73,11 +69,27 @@ const typeDefs = gql`
 # Useful for validations and autocomplete in GraphQL clients.
 # Ensures users don’t send random strings like "Mars" or "123" for nationality.
     enum nationality { #enumeration — basically, a list of predefined constant values. It’s like saying: “Only these specific values are allowed for this field. Nothing else.”
-
         Canada
         Brazil
         United States
     }
+
+# These handle success or error responses for Users query.
+# union allows you to return either a success object or an error message.
+
+    type UserSuccessfulResult{
+        users: [User!]!
+        # User! → Each user inside the list must not be null.
+        # [User!] → A list of non-null users.
+        # [User!]! → The list itself must also not be null.
+
+    }
+
+    type UsersErrorResult{
+        message:String!
+    }
+
+    union UserResult= UserSuccessfulResult | UsersErrorResult 
 
 `
 module.exports = { typeDefs }

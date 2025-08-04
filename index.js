@@ -20,7 +20,9 @@ const { ApolloServer } = require('apollo-server');
 
 
 // Make a new instance of Apollo Server 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ typeDefs, resolvers,context:()=>{
+    return {name:"Pedro"};
+} });
 // This line connects your GraphQL structure (typeDefs) with the logic (resolvers).
 // Tells Apollo: “Use this schema and these functions to respond to API requests.”
 

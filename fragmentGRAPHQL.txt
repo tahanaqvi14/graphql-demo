@@ -1,0 +1,8 @@
+A fragment is like a reusable piece of a GraphQL query.
+You can think of it like a shortcut or a template for repeated fields.
+
+
+
+A fragment is a reusable group of fields in GraphQL
+Think of it like a copy-paste shortcut
+Used when multiple queries need the same shape of data

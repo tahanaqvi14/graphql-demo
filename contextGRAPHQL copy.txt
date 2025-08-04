@@ -1,0 +1,89 @@
+✅ What is context in GraphQL?
+In GraphQL (with Apollo Server), the context is like a backstage pass that carries important information to all your resolvers.
+It’s something you define once when starting your server, and it gets passed automatically to every query or mutation.
+In GraphQL, context = a bag of useful info that your backend gives to every resolver.
+
+It’s NOT your data like users or movies.
+
+It’s side info like:
+- who the user is
+- what room they’re in
+- if they’re admin or not
+- their token or ID
+
+
+
+🔧 Where You Define Context?
+in your index.js
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: () => {
+    return { name: "Pedro" };
+  },
+});
+
+You defined context as an object with { name: "Pedro" }.
+This means every resolver will receive this as the context parameter.
+
+in resolver.js:
+Users(parent, args, context, info) {
+  console.log(context)  // { name: "Pedro" }
+  return UserList;
+}
+
+So now, in this resolver:
+context.name === "Pedro"
+You're just printing it right now, but you can do powerful stuff with it.
+
+
+🧭 WHEN Should You Use context?
+Use context when your resolvers need shared or request-specific information, like:
+
+✅ 1. Authentication (Most Common Use Case)
+🔥 When to use?
+When you want to know who is making the request — like checking if the user is logged in.
+it can be used to create a middleware.
+
+
+
+
+
+✅ 2. Game or Room Data
+If you're building a multiplayer game (like your Bug Wars app), each user is in a room. Use context to pass:
+
+Room ID
+
+Current player
+
+Shared room data (socket ID, etc.)
+
+✅ 3. Database Connection (Advanced)
+In big apps, if you use multiple DBs or want per-request database instances, pass them via context.
+
+
+✅ 4. Request-Specific Data
+User agent, IP, geolocation (for analytics/security)
+Request ID (for tracing/logging)
+Localization (user's language/timezone)
+
+✅5. Caching & Data Loaders
+Batch database queries (avoid N+1 problems)
+
+Request-level caching (memoize repeated calls)
+
+
+
+Iski ek example yeh hosakhti ha keh jab aap login kroge tou automatically graphql will get your username etc and then sent it in context:
+context: ({ req }) => {
+  return {
+    username: req.session.user?.username
+  };
+}
+
+uskay baad it can be resolved by any resolvers.
+You don’t repeat req.session.user.username in every resolver
+All resolvers just get a clean username
+Easy to read, debug, and test
+You avoid direct coupling to req.session inside resolvers
+

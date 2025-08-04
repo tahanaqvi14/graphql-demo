@@ -1,0 +1,20 @@
+What is a Union in GraphQL?
+A union lets a field return more than one type.
+
+Think of it like this:
+Imagine you’re asking:
+
+"Hey server, give me something..."
+
+And the server replies:
+"Okay, I might give you a User, or maybe an Error."
+
+That “maybe this or that” is exactly what a union does.
+
+Why Should You Use It?
+
+| Situation                                      | Why Union Helps                                      |
+| --------------------------------------------   | ---------------------------------------------------- |
+| ✅ Something can return **different results**  | Like `Search` can return `User`, `Movie`, or `Error` |
+| ✅ You want **clean error handling**             So frontend can show proper messages                 |
+| ✅ You want to avoid **API crashes**           | Instead of crashing, return a custom error type      |
